@@ -1,38 +1,34 @@
 package com.example.resthttp2;
 
-import hello.Greeting;
-import hello.HelloMessage;
-import org.springframework.http.MediaType;
+import com.example.resthttp2.model.SimpleMessage;
+import com.example.resthttp2.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.HtmlUtils;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.time.LocalTime;
 
 @RestController
 public class SimpleRestController {
+    @Autowired
+    private MessageService messageService;
 
-    @GetMapping("/simpleGet")
-    public String simpleGet() {
-        return "Hello asd";
+    @GetMapping("/simpleMessage")
+    public Mono<SimpleMessage> simpleGet() {
+        return Mono.just(messageService.generateRandomSimpleMessage());
     }
 
-//    @GetMapping(path = "/stream-flux", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-//    public Flux<String> streamFlux() {
-//        return Flux.interval(Duration.ofSeconds(10))
-//                .map(sequence -> "Flux - " + LocalTime.now().toString());
-//    }
-
     @GetMapping("/sse")
-    public Flux<ServerSentEvent<String>> streamEvents() {
+    public Flux<ServerSentEvent<SimpleMessage>> streamEvents() {
         return Flux.interval(Duration.ofSeconds(1))
-                .map(sequence -> ServerSentEvent.<String> builder()
+                .map(sequence -> ServerSentEvent.<SimpleMessage> builder()
                         .id(String.valueOf(sequence))
                         .event("periodic-event")
-                        .data(LocalTime.now().toString())
+                        .data(messageService.generateRandomSimpleMessage())
                         .build());
     }
 
