@@ -1,6 +1,7 @@
-package service;
+package com.example.gethttp2.service;
 
-import model.SimpleMessage;
+
+import com.example.gethttp2.model.SimpleMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
