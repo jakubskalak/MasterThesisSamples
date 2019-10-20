@@ -14,8 +14,11 @@ import java.time.LocalTime;
 
 @RestController
 public class SimpleRestController {
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
+
+    public SimpleRestController(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @GetMapping("/simpleMessage")
     public Mono<SimpleMessage> simpleGet() {

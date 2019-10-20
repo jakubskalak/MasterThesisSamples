@@ -11,8 +11,12 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class SimpleWebSocketHandler implements WebSocketHandler {
-    @Autowired
+    private final
     MessageService messageService;
+
+    public SimpleWebSocketHandler(MessageService messageService) {
+        this.messageService = messageService;
+    }
 
     @Override
     public Mono<Void> handle(WebSocketSession session) {
