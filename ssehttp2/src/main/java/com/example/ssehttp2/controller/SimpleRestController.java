@@ -23,7 +23,6 @@ public class SimpleRestController {
         return Flux.interval(Duration.ofSeconds(1))
                 .map(sequence -> ServerSentEvent.<SimpleMessage> builder()
                         .id(String.valueOf(sequence))
-                        .event("periodic-event")
                         .data(messageService.generateRandomSimpleMessage())
                         .build());
     }
