@@ -1,4 +1,4 @@
-package com.example.wsshttp2.model;
+package com.example.ssehttp2.model;
 
 public class SimpleMessage {
     private int value;

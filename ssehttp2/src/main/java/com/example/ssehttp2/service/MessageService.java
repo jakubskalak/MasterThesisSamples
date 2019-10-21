@@ -1,6 +1,7 @@
-package com.example.wsshttp2.service;
+package com.example.ssehttp2.service;
 
-import com.example.wsshttp2.model.SimpleMessage;
+
+import com.example.ssehttp2.model.SimpleMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
